@@ -5,7 +5,13 @@
 package it.polito.tdp.seriea;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import it.polito.tdp.seriea.exception.SerieAException;
+import it.polito.tdp.seriea.model.Model;
+import it.polito.tdp.seriea.model.Season;
+import it.polito.tdp.seriea.model.Team;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -20,7 +26,7 @@ public class SerieAController {
     private URL location;
 
     @FXML // fx:id="boxSeason"
-    private ChoiceBox<?> boxSeason; // Value injected by FXMLLoader
+    private ChoiceBox<Season> boxSeason; // Value injected by FXMLLoader
 
     @FXML // fx:id="boxTeam"
     private ChoiceBox<?> boxTeam; // Value injected by FXMLLoader
@@ -28,9 +34,27 @@ public class SerieAController {
     @FXML // fx:id="txtResult"
     private TextArea txtResult; // Value injected by FXMLLoader
 
+	private Model model;
+
     @FXML
     void handleCarica(ActionEvent event) {
-
+    	Season s = this.boxSeason.getValue();
+    	System.out.println("<handleCarica> stagione: " + s.getDescription());
+    	
+    	try {
+			List<Team> classifica = this.model.classifica(s.getSeason());
+			this.txtResult.setText("CLASSIFICA stagione " + s.getDescription() + "\n\n");
+			for(Team t : classifica){
+				txtResult.appendText(String.format("%s --> %d \n", t.getTeam(), t.getPunteggio()));
+			}
+			
+		} catch (SerieAException e) {
+			e.printStackTrace();
+			this.txtResult.setText("Errore nel calcolo della classifica.");
+		}
+    	
+    	
+    	
     }
 
     @FXML
@@ -44,4 +68,13 @@ public class SerieAController {
         assert boxTeam != null : "fx:id=\"boxTeam\" was not injected: check your FXML file 'SerieA.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'SerieA.fxml'.";
     }
+
+	public void setModel(Model model) {
+		this.model = model;
+		try {
+			this.boxSeason.getItems().addAll(this.model.allSeasons());
+		} catch (SerieAException e) {
+			this.txtResult.setText("Errore nel caricamento delle stagioni.");
+		}
+	}
 }

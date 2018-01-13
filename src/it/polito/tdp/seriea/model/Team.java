@@ -2,10 +2,24 @@ package it.polito.tdp.seriea.model;
 
 public class Team {
 	
-	private String team ;
+	private final String team ;
+	private int punteggio = 0;
+
+	/**
+	 * @return the punteggio
+	 */
+	public int getPunteggio() {
+		return punteggio;
+	}
+
+	/**
+	 * @param punteggio the punteggio to set
+	 */
+	public void addPunti(int punteggio) {
+		this.punteggio += punteggio;
+	}
 
 	public Team(String team) {
-		super();
 		this.team = team;
 	}
 
@@ -16,12 +30,6 @@ public class Team {
 		return team;
 	}
 
-	/**
-	 * @param team the team to set
-	 */
-	public void setTeam(String team) {
-		this.team = team;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

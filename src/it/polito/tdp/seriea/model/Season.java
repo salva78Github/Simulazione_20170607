@@ -1,10 +1,9 @@
 package it.polito.tdp.seriea.model;
 
 public class Season {
-	private int season ;
-	private String description ;
+	private final int season ;
+	private final String description ;
 	public Season(int season, String description) {
-		super();
 		this.season = season;
 		this.description = description;
 	}
@@ -19,18 +18,6 @@ public class Season {
 	 */
 	public String getDescription() {
 		return description;
-	}
-	/**
-	 * @param season the season to set
-	 */
-	public void setSeason(int season) {
-		this.season = season;
-	}
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

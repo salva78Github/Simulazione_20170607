@@ -30,7 +30,6 @@ public class Match {
 	 */
 	public Match(int id, Season season, String div, LocalDate date, Team homeTeam, Team awayTeam, int fthg, int ftag,
 			String ftr) {
-		super();
 		this.id = id;
 		this.season = season;
 		this.div = div;
@@ -194,6 +193,15 @@ public class Match {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Match [id=" + id + ", season=" + season + ", div=" + div + ", date=" + date + ", homeTeam=" + homeTeam
+				+ ", awayTeam=" + awayTeam + ", fthg=" + fthg + ", ftag=" + ftag + ", ftr=" + ftr + "]";
 	}
 	
 	
